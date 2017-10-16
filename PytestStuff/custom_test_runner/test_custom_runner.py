@@ -31,14 +31,19 @@ def cmd_line_parse():
     return args
 
 
-def main():
+def generate_pytest_args():
     args = cmd_line_parse()
     run_tests = args.run_tests
-    pytest_args = ['-x', HERE, "--pdb"]
+    pytest_args = ["--pdb"]
 
     if run_tests:
         pytest_args.extend(["-k", run_tests])
 
+    return pytest_args
+
+
+def main():
+    pytest_args = generate_pytest_args()
     pytest.main(pytest_args)
 
 
