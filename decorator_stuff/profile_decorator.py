@@ -1,6 +1,5 @@
 import time
 import numpy as np
-import functools
 
 
 def profile(fn):
@@ -46,6 +45,21 @@ def generate_data():
     mat_1 = np.random.random((100, 1000))
     mat_2 = np.random.random((1000, 5000))
     return mat_1, mat_2
+
+
+def profile_simple(fn):
+    def wrap(*args, **kwargs):
+        start = time.time()
+        return_value = fn(*args, **kwargs)
+        end = time.time()
+        timed = end-start
+
+        print "Function {}: elapsed {}s".format(
+            fn.__name__, timed)
+
+        return return_value
+
+    return wrap
 
 
 def main():
